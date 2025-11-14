@@ -22,6 +22,7 @@ const customizationForm = document.getElementById("customization");
 
 
 function renderPuzzle() {
+    numberMoves.innerHTML = `<h4>0</h4>`
     knobs.hidden = false;
     if (customLabel && customLabel.length === n) {
         groundTruthLabels = customLabel.toUpperCase().split('');
