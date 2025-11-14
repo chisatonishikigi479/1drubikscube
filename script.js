@@ -131,7 +131,7 @@ function updateLabels() {
             solvedMessage.hidden = true;
         }
         return finalStructure;
-    });
+    }).join("");
 }
 
 function getRandomInt (min, max) {
