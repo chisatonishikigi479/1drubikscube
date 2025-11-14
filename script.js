@@ -20,8 +20,10 @@ const numberMoves = document.getElementById("number-moves");
 
 const customizationForm = document.getElementById("customization");
 
+let completed = false;
 
 function renderPuzzle() {
+    completed = false;
     numberMoves.innerHTML = `<h4>0</h4>`
     knobs.hidden = false;
     if (customLabel && customLabel.length === n) {
@@ -78,7 +80,19 @@ function applyKnob (index, orientation) {
     }
     numMoves += 1;
     numberMoves.innerHTML = `<h4>${numMoves}</h4>`
+    checkCompletion();
     updateLabels();
+}
+
+function checkCompletion() {
+    const solved = currentLabels.length === groundTruthLabels.length && 
+                    currentLabels.every((label, index) => label === groundTruthLabels[index]);
+    if (solved) {
+        completed = true;
+    }
+    else {
+        completed = false;
+    }
 }
 
 function scramblePuzzle() {
@@ -97,6 +111,7 @@ function scramblePuzzle() {
             currentLabels[currIndex - 1 + j] = shuffleWindow[j];
         }
     }
+
     updateLabels();
 }
 
@@ -106,7 +121,11 @@ function updateLabels() {
         indices.push(i);
     }
     permutationDisplay.innerHTML = indices.map ((index) => {
-        return `${currentLabels[index - 1]} `
+        let finalStructure = `${currentLabels[index - 1]} `;
+        if (completed) {
+            finalStructure += "(solved!)"
+        }
+        return finalStructure;
     });
 }
 
