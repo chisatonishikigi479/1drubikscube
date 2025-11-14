@@ -122,16 +122,19 @@ function updateLabels() {
     for (let i = 1; i <= n; i++) {
         indices.push(i);
     }
-    permutationDisplay.innerHTML = indices.map ((index) => {
-        let finalStructure = `${currentLabels[index - 1]} `;
-        if (completed) {
-            solvedMessage.hidden = false;
-        }
-        else {
-            solvedMessage.hidden = true;
-        }
-        return finalStructure;
-    }).join("");
+    
+    const labelString = indices.map((index) => {
+        return currentLabels[index - 1];
+    }).join(" ");
+    permutationDisplay.innerHTML = `<h3>${labelString}</h3>`;
+
+    if (completed) {
+        solvedMessage.hidden = false;
+    }
+    else {
+        solvedMessage.hidden = true;
+    }
+
 }
 
 function getRandomInt (min, max) {
