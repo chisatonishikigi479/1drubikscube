@@ -66,10 +66,10 @@ function renderPuzzle() {
 function applyKnob (index, orientation) {
     const currIndex = index;
     let shuffleWindow = currentLabels.slice(currIndex-1, currIndex+k-1);
-    if (orientation = 'left') {
+    if (orientation == 'left') {
         shuffleWindow = leftShift(shuffleWindow);
     }
-    else if (orientation = 'right') {
+    else if (orientation == 'right') {
         shuffleWindow = rightShift(shuffleWindow);
     }
     for (let j = 0; j < k; j++) {
