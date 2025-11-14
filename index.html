@@ -23,15 +23,15 @@
     <h2>Customize Your Puzzle: </h2>
     <div class="customization-input">
         <label for="n">Choose permutation length (n): </label>
-            <input type="number" id="perm-length-input" name="n" placeholder="5" min="4" max="9">
+            <input type="number" id="perm-length-input" name="n" placeholder="5" min="4" max="9" required>
     </div>
     <div class="customization-input">
         <label for="k">Choose window size (k): </label>
-            <input type="number" id="window-size-input" name="k" placeholder="3" min="3" max="8">
+            <input type="number" id="window-size-input" name="k" placeholder="3" min="3" max="8" required>
     </div>
     <div class="customization-input">
         <label for="custom-label">Choose custom number labels (enter an unscrambled "base word"): </label>
-        <input type="text" id="custom-label-input" name="custom-label" placeholder="FRUIT" required>
+        <input type="text" id="custom-label-input" name="custom-label" placeholder="FRUIT">
     </div>
     <div class="actions">
         <button type="submit" class="btn" id="submit-button">Update preferences (Note: this will reset the current puzzle)!</button>
