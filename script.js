@@ -29,7 +29,7 @@ function renderPuzzle() {
         groundTruthLabels = Array.from({length: n}, (_, i) => i + 1);
     }
     
-    currentLabels = groundTruthLabels;
+    currentLabels = groundTruthLabels.slice();
     const indicesArr = [];
     for (let i = 1; i <= n-k+1; i++) {
         indicesArr.push(i);
@@ -64,8 +64,17 @@ function renderPuzzle() {
 }
 
 function applyKnob (index, orientation) {
-
-
+    const currIndex = index;
+    let shuffleWindow = currentLabels.slice(currIndex-1, currIndex+k-1);
+    if (orientation = 'left') {
+        shuffleWindow = leftShift(shuffleWindow);
+    }
+    else if (orientation = 'right') {
+        shuffleWindow = rightShift(shuffleWindow);
+    }
+    for (let j = 0; j < k; j++) {
+        currentLabels[currIndex - 1 + j] = shuffleWindow[j];
+    }
     numMoves += 1;
     numberMoves.innerHTML = `<h4>${numMoves}</h4>`
     updateLabels();
@@ -75,13 +84,16 @@ function scramblePuzzle() {
     const numShuffles = 50;
     for (let i = 1; i <= numShuffles; i++) {
         const currIndex = getRandomInt(1, n-k+1);
-        let shuffleWindow = currentLabels.slice(currIndex, currIndex+k);
+        let shuffleWindow = currentLabels.slice(currIndex-1, currIndex+k-1);
         const shift = getRandomInt(0, 1);
         if (shift == 0) {
-            shuffleWindow = rightShift(shuffleWindow);
+            shuffleWindow = leftShift(shuffleWindow);
         }
         else {
             shuffleWindow = rightShift(shuffleWindow);
+        }
+        for (let j = 0; j < k; j++) {
+            currentLabels[currIndex - 1 + j] = shuffleWindow[j];
         }
     }
     updateLabels();
@@ -95,7 +107,6 @@ function updateLabels() {
     permutationDisplay.innerHTML = indices.map ((index) => {
         return `${currentLabels[index - 1]} `
     });
-
 }
 
 function getRandomInt (min, max) {
@@ -133,7 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     customizationForm.addEventListener("submit", (event) => {
         event.preventDefault();
-
+        n = parseInt(permLengthInput.value);
+        k = parseInt(windowSizeInput.value);
         customLabel = customLabelInput.value;
 
         renderPuzzle();
