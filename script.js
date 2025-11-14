@@ -19,10 +19,12 @@ const permutationDisplay = document.getElementById("permutation-display");
 const numberMoves = document.getElementById("number-moves");
 
 const customizationForm = document.getElementById("customization");
+const solvedMessage = document.getElementById("solved-message");
 
 let completed = false;
 
 function renderPuzzle() {
+    solvedMessage.hidden = true;
     completed = false;
     numberMoves.innerHTML = `<h4>0</h4>`
     knobs.hidden = false;
@@ -123,7 +125,10 @@ function updateLabels() {
     permutationDisplay.innerHTML = indices.map ((index) => {
         let finalStructure = `${currentLabels[index - 1]} `;
         if (completed) {
-            finalStructure += "(solved!)"
+            solvedMessage.hidden = false;
+        }
+        else {
+            solvedMessage.hidden = true;
         }
         return finalStructure;
     });
