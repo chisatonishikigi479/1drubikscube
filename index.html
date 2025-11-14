@@ -8,9 +8,40 @@
 </head>
 <body>
 
-<label
+<div id="puzzle-display">
+    <h2>Current Permutation: </h2>
+    <div id="permutation-display"><h3></h3></div>
 
+    <h4>Number of moves so far: 
+        <div id="number-moves">0</div>
+    </h4>
 
+    <button id="scramble-button">New Scramble</button>
+</div>
+
+<form id="customization">
+    <h2>Customize Your Puzzle: </h2>
+    <div class="customization-input">
+        <label for="n">Choose permutation length (n): </label>
+            <input type="number" id="perm-length-input" name="n" placeholder="5" min="4" max="9">
+    </div>
+    <div class="customization-input">
+        <label for="k">Choose window size (k): </label>
+            <input type="number" id="window-size-input" name="k" placeholder="3" min="3" max="8">
+    </div>
+    <div class="customization-input">
+        <label for="custom-label">Choose custom number labels (enter an unscrambled "base word"): </label>
+        <input type="text" id="custom-label-input" name="custom-label" placeholder="FRUIT" required>
+    </div>
+    <div class="actions">
+        <button type="submit" class="btn" id="submit-button">Update preferences (Note: this will reset the current puzzle)!</button>
+        <button type="reset" class="btn btn-ghost" id="reset-button">Clear form</button>
+    </div>
+</form>
+
+<div id="knobs">
+    <!--JS injects knobs here-->
+</div>
 
 
 <script src="script.js" defer></script>
