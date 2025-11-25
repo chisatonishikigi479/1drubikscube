@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini API Test</title>
+</head>
+<body> 
+    <div id="response">
+        Waiting for response...
+    </div>
+
+    <script>
+        async function testGemini() {
+
+            const GEMINI_API_KEY = 'AIzaSyB4jJjZ3U89Aohq1tsuPhCA61tfE_eBDps';
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=${GEMINI_API_KEY}`;
+
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'Loading...';
+
+            try {
+                const response = await fetch(
+                    GEMINI_API_URL,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: "Hello World"
+                                }]
+                            }]
+                        })
+                    }
+                );
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || 'Something went wrong');
+                }
+                else {
+                    console.log("successful Gemini response");
+                }
+
+                const responseText = data.candidates[0].content.parts[0].text;
+                responseDiv.innerHTML = `<strong>Response:</strong><br>${responseText}`;
+                
+            } catch (error) {
+                responseDiv.innerHTML = `<strong>Error:</strong> ${error.message}`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            testGemini();
+        });
+    </script>
+</body>
+</html>
